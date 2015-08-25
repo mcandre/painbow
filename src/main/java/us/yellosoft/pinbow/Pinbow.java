@@ -14,14 +14,14 @@ import com.datastax.driver.core.ResultSet;
 public class Pinbow {
   public static final String DOC =
     "Usage:\n" +
-    "  pinbow [--cluster=<address>] [--algorithm=<algorithm>] --encrypt=<password>\n" +
-    "  pinbow [--cluster=<address>] [--algorithm=<algorithm>] --decrypt=<hash>\n" +
+    "  pinbow [--contact-point=<host>] [--algorithm=<algorithm>] --encrypt=<password>\n" +
+    "  pinbow [--contact-point=<host>] [--algorithm=<algorithm>] --decrypt=<hash>\n" +
     "  pinbow --version\n" +
     "  pinbow --help\n" +
     "Options:\n" +
     "  -d --decrypt=<hash>         Decrypt a hash.\n" +
     "  -e --encrypt=<password>     Encrypt a password.\n" +
-    "  -c --cluster=<address>      Cluster address [default: 127.0.0.1].\n" +
+    "  -c --contact-point=<host>   Cassandra contact point host [default: 127.0.0.1].\n" +
     "  -a --algorithm=<algorithm>  Hash algorithm [default: MD5].\n" +
     "  -v --version                Show version.\n" +
     "  -h --help                   Print usage info.\n";
@@ -41,7 +41,7 @@ public class Pinbow {
   public static void main(final String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
     Map<String, Object> options = new Docopt(DOC).withVersion("0.0.1").parse(args);
 
-    Cluster cluster = Cluster.builder().addContactPoint((String) options.get("--cluster")).build();
+    Cluster cluster = Cluster.builder().addContactPoint((String) options.get("--contact-point")).build();
     Session session = cluster.connect("rainbows");
 
     if ((String) options.get("--encrypt") != null) {
