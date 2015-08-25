@@ -1,4 +1,4 @@
-# pinbow - a plug n' playable rainbow table
+# pinbow - a plug 'n' play rainbow table
 
 # EXAMPLES
 
