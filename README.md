@@ -1,12 +1,12 @@
-# pinbow - a plug 'n' play rainbow table
+# painbow - a plug 'n' play rainbow table
 
 # EXAMPLES
 
 ```
 $ mvn package
 $ docker run -d -p 9042:9042 cassandra:2.1
-$ bin/pinbow -c $(boot2docker ip) -e "What, me worry?"
-$ bin/pinbow -c $(boot2docker ip) -d "e4bff95300a644037dc12495fdecf39d"
+$ bin/painbow -c $(boot2docker ip) -e "What, me worry?"
+$ bin/painbow -c $(boot2docker ip) -d "e4bff95300a644037dc12495fdecf39d"
 What, me worry?
 ```
 

@@ -1,4 +1,4 @@
-package us.yellosoft.pinbow;
+package us.yellosoft.painbow;
 
 import java.util.Map;
 import java.security.MessageDigest;
@@ -11,13 +11,13 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.ResultSet;
 
-public class Pinbow {
+public class Painbow {
   public static final String DOC =
     "Usage:\n" +
-    "  pinbow [--contact-point=<host>] [--algorithm=<algorithm>] --encrypt=<password>\n" +
-    "  pinbow [--contact-point=<host>] [--algorithm=<algorithm>] --decrypt=<hash>\n" +
-    "  pinbow --version\n" +
-    "  pinbow --help\n" +
+    "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --encrypt=<password>\n" +
+    "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --decrypt=<hash>\n" +
+    "  painbow --version\n" +
+    "  painbow --help\n" +
     "Options:\n" +
     "  -d --decrypt=<hash>         Decrypt a hash.\n" +
     "  -e --encrypt=<password>     Encrypt a password.\n" +
@@ -45,10 +45,10 @@ public class Pinbow {
     Session session = cluster.connect("rainbows");
 
     if ((String) options.get("--encrypt") != null) {
-      Pinbow.put(session, (String) options.get("--algorithm"), (String) options.get("--encrypt"));
+      Painbow.put(session, (String) options.get("--algorithm"), (String) options.get("--encrypt"));
     }
     else if ((String) options.get("--decrypt") != null) {
-      System.out.println(Pinbow.get(session, (String) options.get("algorithm"), (String) options.get("--decrypt")));
+      System.out.println(Painbow.get(session, (String) options.get("algorithm"), (String) options.get("--decrypt")));
     }
   }
 }

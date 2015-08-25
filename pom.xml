@@ -2,13 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>us.yellosoft.pinbow</groupId>
-  <artifactId>pinbow</artifactId>
+  <groupId>us.yellosoft.painbow</groupId>
+  <artifactId>painbow</artifactId>
   <version>0.0.1</version>
   <packaging>jar</packaging>
 
-  <name>pinbow</name>
-  <url>https://github.com/mcandre/pinbow/</url>
+  <name>painbow</name>
+  <url>https://github.com/mcandre/painbow/</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,7 +54,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>us.yellosoft.pinbow.Pinbow</mainClass>
+              <mainClass>us.yellosoft.painbow.Painbow</mainClass>
             </manifest>
           </archive>
         </configuration>
