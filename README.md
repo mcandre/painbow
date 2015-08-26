@@ -2,7 +2,7 @@
 
 # ABOUT
 
-painbow is a scalable rainbow table, able to handle petabytes of passwords and hashes. Just point painbow to a cluster and enter some passwords to index.
+painbow is a scalable rainbow table, able to handle petabytes of passwords and hashes. Just point painbow to a Cassandra cluster node and enter some passwords to index.
 
 # EXAMPLES
 
