@@ -21,6 +21,22 @@ $ bin/painbow -c $(boot2docker ip) -a SHA1 -e "Al Jafee"
 13b4e0cc1d18b04cfeeb92e30368260a17d337bb
 $ bin/painbow -c $(boot2docker ip) -a SHA1 -d 13b4e0cc1d18b04cfeeb92e30368260a17d337bb
 Al Jafee
+
+$ bin/painbow -h
+Usage:
+  painbow [--contact-point=<host>] --migrate
+  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --encrypt=<password>
+  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --decrypt=<hash>
+  painbow --version
+  painbow --help
+Options:
+  -m --migrate                Run migrations.
+  -d --decrypt=<hash>         Decrypt a hash.
+  -e --encrypt=<password>     Encrypt a password.
+  -c --contact-point=<host>   Cassandra contact point host [default: 127.0.0.1].
+  -a --algorithm=<algorithm>  Hash algorithm [default: MD5].
+  -v --version                Show version.
+  -h --help                   Print usage info.
 ```
 
 # REQUIREMENTS
