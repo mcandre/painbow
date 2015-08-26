@@ -1,5 +1,9 @@
 # painbow - a plug 'n' play rainbow table
 
+# ABOUT
+
+painbow is a scalable rainbow table, able to handle petabytes of passwords and hashes. Just point painbow to a cluster and enter some passwords to index.
+
 # EXAMPLES
 
 ```
