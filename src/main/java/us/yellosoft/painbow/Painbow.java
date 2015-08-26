@@ -36,6 +36,7 @@ public class Painbow {
 
   public static final String[] ALGORITHMS = { "MD2", "MD5", "SHA1", "SHA256", "SHA384", "SHA512" };
 
+  // Don't do this. Use a proper migrations framework instead of hardcoding.
   public static void migrate(final Session session) {
     session.execute(
       "CREATE KEYSPACE IF NOT EXISTS " + KEYSPACE + " WITH REPLICATION = " +
