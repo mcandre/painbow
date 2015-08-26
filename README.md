@@ -41,7 +41,7 @@ Options:
 
 # REQUIREMENTS
 
-* [Cassandra](http://cassandra.apache.org/) 2.2+
+* [Cassandra](http://cassandra.apache.org/) 2+
 * [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 1.7+
 
 ## Optional
