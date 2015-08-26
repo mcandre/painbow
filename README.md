@@ -10,10 +10,13 @@ painbow is a scalable rainbow table, able to handle petabytes of passwords and h
 $ docker run -p 9042:9042 -p 7000:7000 -p 7001:7001 -p 7199:7199 -p 9160:9160 cassandra:2.2
 
 $ mvn package
+
 $ bin/painbow -c $(boot2docker ip) -m
+
 $ bin/painbow -c $(boot2docker ip) -e "What, me worry?"
 $ bin/painbow -c $(boot2docker ip) -d c25851553639f94b5e5be71ff22889c4
 What, me worry?
+
 $ bin/painbow -c $(boot2docker ip) -a SHA1 -e "Al Jafee"
 13b4e0cc1d18b04cfeeb92e30368260a17d337bb
 $ bin/painbow -c $(boot2docker ip) -a SHA1 -d 13b4e0cc1d18b04cfeeb92e30368260a17d337bb
