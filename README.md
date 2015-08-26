@@ -5,8 +5,9 @@
 ```
 $ mvn package
 $ docker run -d -p 9042:9042 cassandra:2.1
+$ bin/painbow -c $(boot2docker ip) -m
 $ bin/painbow -c $(boot2docker ip) -e "What, me worry?"
-$ bin/painbow -c $(boot2docker ip) -d "e4bff95300a644037dc12495fdecf39d"
+$ bin/painbow -c $(boot2docker ip) -d c25851553639f94b5e5be71ff22889c4
 What, me worry?
 ```
 
