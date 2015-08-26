@@ -1,4 +1,4 @@
-# painbow - a plug 'n' play rainbow table
+# painbow - a scalable rainbow table
 
 # ABOUT
 
