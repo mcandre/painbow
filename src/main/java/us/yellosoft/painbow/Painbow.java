@@ -40,7 +40,7 @@ public class Painbow {
   public static void migrate(final Session session) {
     session.execute(
       "CREATE KEYSPACE IF NOT EXISTS " + KEYSPACE + " WITH REPLICATION = " +
-      "{ 'class': 'SimpleStrategy', 'replication_factor': 2}"
+      "{ 'class': 'SimpleStrategy', 'replication_factor': 3}"
     );
 
     for (String algorithm : ALGORITHMS) {
