@@ -21,12 +21,14 @@ public class Painbow {
     "  painbow [--contact-point=<host>] --migrate\n" +
     "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --encrypt=<password>\n" +
     "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --decrypt=<hash>\n" +
+    "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --size\n" +
     "  painbow --version\n" +
     "  painbow --help\n" +
     "Options:\n" +
     "  -m --migrate                Run migrations.\n" +
     "  -d --decrypt=<hash>         Decrypt a hash.\n" +
     "  -e --encrypt=<password>     Encrypt a password.\n" +
+    "  -s --size                   Calculate number of passwords stored.\n" +
     "  -c --contact-point=<host>   Cassandra contact point host [default: 127.0.0.1].\n" +
     "  -a --algorithm=<algorithm>  Hash algorithm [default: MD5].\n" +
     "  -v --version                Show version.\n" +
@@ -72,6 +74,22 @@ public class Painbow {
     );
   }
 
+  public static long size(final Session session, final String algorithm) {
+    ResultSet resultSet = session.execute(
+      "SELECT COUNT(*) FROM " + KEYSPACE + "." + algorithm.replaceAll("-", "")
+    );
+
+    List<Row> rows = resultSet.all();
+
+    long total = 0L;
+
+    for (Row row : rows) {
+      total += row.getLong("count");
+    }
+
+    return total;
+  }
+
   public static void main(final String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
     Map<String, Object> options = new Docopt(DOC).withVersion("0.0.1").parse(args);
 
@@ -101,6 +119,14 @@ public class Painbow {
       if (row != null) {
         System.out.println(row.getString("password"));
       }
+    }
+    else if ((Boolean) options.get("--size") != null) {
+      System.out.println(
+        size(
+          session,
+          (String) options.get("--algorithm")
+        )
+      );
     }
 
     session.close();
