@@ -58,17 +58,19 @@ Options:
 ## Optional
 
 * [Docker](https://www.docker.com/)
+* [wget](http://www.gnu.org/software/wget/)
+* [bash](http://www.gnu.org/software/bash/)
 
 ## Debian/Ubuntu
 
 ```
-$ sudo apt-get install docker.io
+$ sudo apt-get install docker.io wget
 ```
 
 ## RedHat/Fedora/CentOS
 
 ```
-$ sudo yum install docker-io
+$ sudo yum install docker-io wget
 ```
 
 ## non-Linux
@@ -85,7 +87,7 @@ $ sudo yum install docker-io
 
 ```
 $ brew cask install virtualbox vagrant
-$ brew install boot2docker
+$ brew install boot2docker wget
 ```
 
 ### Windows
@@ -93,5 +95,5 @@ $ brew install boot2docker
 * [Chocolatey](https://chocolatey.org/)
 
 ```
-> chocolatey install docker
+> chocolatey install docker wget git
 ```
