@@ -1,7 +1,9 @@
 #!/bin/sh
 
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
 wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/500-worst-passwords.txt
 
 while read password; do
-  bin/painbow -c $(boot2docker ip) -e "$password"
+  $DIR/painbow -c $(boot2docker ip) -e "$password"
 done < 500-worst-passwords.txt

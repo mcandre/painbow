@@ -22,7 +22,7 @@ $ bin/painbow -c $(boot2docker ip) -a SHA1 -e "Al Jafee"
 $ bin/painbow -c $(boot2docker ip) -a SHA1 -d 13b4e0cc1d18b04cfeeb92e30368260a17d337bb
 Al Jafee
 
-$ ./seed.sh
+$ bin/seed-painbow
 ...
 
 $ bin/painbow -c $(boot2docker ip) --size
