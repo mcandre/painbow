@@ -1,0 +1,36 @@
+plugins {
+  id 'net.saliman.cobertura' version '2.2.8'
+  id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
+
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'net.saliman.cobertura'
+
+compileJava {
+  options.compilerArgs << '-Xlint:all'
+}
+
+checkstyle {
+  configProperties = [configDir: "${rootDir}/config"]
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'us.yellosoft.painbow.Painbow'
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'com.offbytwo:docopt:0.6.0.20150202'
+  compile 'org.lucee:commons-codec:1.10.0'
+  compile 'com.datastax.cassandra:cassandra-driver-core:2.1.7.1'
+
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.slf4j:slf4j-log4j12:1.7.12'
+}

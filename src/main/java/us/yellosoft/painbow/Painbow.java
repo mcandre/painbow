@@ -15,7 +15,12 @@ import com.datastax.driver.core.Session;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 
-public class Painbow {
+/** Cassandra-backed rainbow table */
+public final class Painbow {
+  /** Utility class */
+  private Painbow() {}
+
+  /** DocOpt usage spec */
   public static final String DOC =
     "Usage:\n" +
     "  painbow [--contact-point=<host>] --migrate\n" +
@@ -34,11 +39,15 @@ public class Painbow {
     "  -v --version                Show version.\n" +
     "  -h --help                   Print usage info.\n";
 
+  /** Painbow's Cassandra keyspace */
   public static final String KEYSPACE = "rainbows";
 
+  /** Supported hash algorithms */
   public static final String[] ALGORITHMS = { "MD2", "MD5", "SHA1", "SHA256", "SHA384", "SHA512" };
 
-  // Don't do this. Use a proper migrations framework instead of hardcoding.
+  /** Don't do this. Use a proper migrations framework instead of hardcoding.
+      @param session a Cassandra session
+   */
   public static void migrate(final Session session) {
     session.execute(
       "CREATE KEYSPACE IF NOT EXISTS " + KEYSPACE + " WITH REPLICATION = " +
@@ -53,6 +62,14 @@ public class Painbow {
     }
   }
 
+  /** Inform the rainbow table of a password/hash pair
+      @param session a Cassandra session
+      @param algorithm a supported hash algorithm name
+      @param password a UTF-8 password to store
+      @return a hash string
+      @throws NoSuchAlgorithmException on unsupported algorithm name
+      @throws UnsupportedEncodingException on a poorly encoded password
+   */
   public static String put(final Session session, final String algorithm, final String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
     final MessageDigest md = MessageDigest.getInstance(algorithm);
     md.update(password.getBytes("UTF-8"));
@@ -67,6 +84,13 @@ public class Painbow {
     return hash;
   }
 
+  /** Lookup a password from a hash
+      @param session a Cassandra session
+      @param algorithm a supported hash algorith name
+      @param hash a hash string
+      @return a UTF-8 password
+      @throws NoSuchAlgorithmException on unsupported algorithm name
+   */
   public static ResultSet get(final Session session, final String algorithm, final String hash) throws NoSuchAlgorithmException {
     return session.execute(
       "SELECT password FROM " + KEYSPACE + "." + algorithm.replaceAll("-", "") + " WHERE hash = ?",
@@ -74,6 +98,11 @@ public class Painbow {
     );
   }
 
+  /** Count total passwords per algorithm
+      @param session a Cassandra session
+      @param algorithm an algorithm name
+      @return the number of password/hash pairs stored for that algorithm
+   */
   public static long size(final Session session, final String algorithm) {
     ResultSet resultSet = session.execute(
       "SELECT COUNT(*) FROM " + KEYSPACE + "." + algorithm.replaceAll("-", "")
@@ -90,6 +119,11 @@ public class Painbow {
     return total;
   }
 
+  /** CLI entry point
+      @param args CLI flags
+      @throws NoSuchAlgorithmException on an unsupported algorithm name
+      @throws UnsupportedEncodingException on a poorly encoded password
+   */
   public static void main(final String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
     Map<String, Object> options = new Docopt(DOC).withVersion("0.0.1").parse(args);
 

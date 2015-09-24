@@ -9,7 +9,7 @@ painbow is a scalable rainbow table, able to handle petabytes of passwords and h
 ```
 $ docker run -p 9042:9042 -p 7000:7000 -p 7001:7001 -p 7199:7199 -p 9160:9160 cassandra:2.2
 
-$ mvn package
+$ gradle shadowJar
 
 $ bin/painbow -c $(boot2docker ip) --migrate
 
@@ -54,6 +54,7 @@ Options:
 
 * [Cassandra](http://cassandra.apache.org/) 2+
 * [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 1.7+
+* [Gradle](http://gradle.org/) 2.1+
 
 ## Optional
 
@@ -64,13 +65,13 @@ Options:
 ## Debian/Ubuntu
 
 ```
-$ sudo apt-get install docker.io wget
+$ sudo apt-get install docker.io wget gradle
 ```
 
 ## RedHat/Fedora/CentOS
 
 ```
-$ sudo yum install docker-io wget
+$ sudo yum install docker-io wget gradle
 ```
 
 ## non-Linux
@@ -87,7 +88,7 @@ $ sudo yum install docker-io wget
 
 ```
 $ brew cask install virtualbox vagrant
-$ brew install boot2docker wget
+$ brew install boot2docker wget gradle
 ```
 
 ### Windows
@@ -95,5 +96,5 @@ $ brew install boot2docker wget
 * [Chocolatey](https://chocolatey.org/)
 
 ```
-> chocolatey install docker wget git
+> chocolatey install docker wget git gradle
 ```
