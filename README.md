@@ -58,6 +58,7 @@ Options:
 
 ## Optional
 
+* [Sonar](http://www.sonarqube.org/)
 * [Docker](https://www.docker.com/)
 * [wget](http://www.gnu.org/software/wget/)
 * [bash](http://www.gnu.org/software/bash/)
@@ -65,13 +66,16 @@ Options:
 ## Debian/Ubuntu
 
 ```
-$ sudo apt-get install docker.io wget gradle
+$ sudo echo "deb http://downloads.sourceforge.net/project/sonar-pkg/deb binary/" >> /etc/apt/sources.list
+$ sudo apt-get update
+$ sudo apt-get install docker.io wget gradle sonar
 ```
 
 ## RedHat/Fedora/CentOS
 
 ```
-$ sudo yum install docker-io wget gradle
+$ sudo wget -O /etc/yum.repos.d/sonar.repo http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
+$ sudo yum install docker-io wget gradle sonar
 ```
 
 ## non-Linux
@@ -88,7 +92,7 @@ $ sudo yum install docker-io wget gradle
 
 ```
 $ brew cask install virtualbox vagrant
-$ brew install boot2docker wget gradle
+$ brew install boot2docker wget gradle sonar sonar-runner
 ```
 
 ### Windows
@@ -96,5 +100,5 @@ $ brew install boot2docker wget gradle
 * [Chocolatey](https://chocolatey.org/)
 
 ```
-> chocolatey install docker wget git gradle
+> chocolatey install docker wget git gradle sonar-runner
 ```

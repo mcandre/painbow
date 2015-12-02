@@ -17,9 +17,6 @@ import com.datastax.driver.core.Row;
 
 /** Cassandra-backed rainbow table */
 public final class Painbow {
-  /** Utility class */
-  private Painbow() {}
-
   /** DocOpt usage spec */
   public static final String DOC =
     "Usage:\n" +
@@ -44,6 +41,9 @@ public final class Painbow {
 
   /** Supported hash algorithms */
   public static final String[] ALGORITHMS = { "MD2", "MD5", "SHA1", "SHA256", "SHA384", "SHA512" };
+
+  /** Utility class */
+  private Painbow() {}
 
   /** Don't do this. Use a proper migrations framework instead of hardcoding.
       @param session a Cassandra session
