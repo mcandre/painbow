@@ -2,6 +2,8 @@ package us.yellosoft.painbow;
 
 import java.util.Map;
 import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.io.UnsupportedEncodingException;
@@ -40,7 +42,7 @@ public final class Painbow {
   public static final String KEYSPACE = "rainbows";
 
   /** Supported hash algorithms */
-  public static final String[] ALGORITHMS = { "MD2", "MD5", "SHA1", "SHA256", "SHA384", "SHA512" };
+  public static final List<String> ALGORITHMS = Collections.unmodifiableList(Arrays.asList("MD2", "MD5", "SHA1", "SHA256", "SHA384", "SHA512"));
 
   /** Utility class */
   private Painbow() {}
