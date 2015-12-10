@@ -20,23 +20,27 @@ import com.datastax.driver.core.Row;
 /** Cassandra-backed rainbow table */
 public final class Painbow {
   /** DocOpt usage spec */
-  public static final String DOC =
-    "Usage:\n" +
-    "  painbow [--contact-point=<host>] --migrate\n" +
-    "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --encrypt=<password>\n" +
-    "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --decrypt=<hash>\n" +
-    "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --size\n" +
-    "  painbow --version\n" +
-    "  painbow --help\n" +
-    "Options:\n" +
-    "  -m --migrate                Run migrations.\n" +
-    "  -d --decrypt=<hash>         Decrypt a hash.\n" +
-    "  -e --encrypt=<password>     Encrypt a password.\n" +
-    "  -s --size                   Calculate number of passwords stored.\n" +
-    "  -c --contact-point=<host>   Cassandra contact point host [default: 127.0.0.1].\n" +
-    "  -a --algorithm=<algorithm>  Hash algorithm [default: MD5].\n" +
-    "  -v --version                Show version.\n" +
-    "  -h --help                   Print usage info.\n";
+  public static final String DOC = String.join(
+    "\n",
+    new String[] {
+      "Usage:",
+      "  painbow [--contact-point=<host>] --migrate",
+      "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --encrypt=<password>",
+      "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --decrypt=<hash>",
+      "  painbow [--contact-point=<host>] [--algorithm=<algorithm>] --size",
+      "  painbow --version",
+      "  painbow --help",
+      "Options:",
+      "  -m --migrate                Run migrations.",
+      "  -d --decrypt=<hash>         Decrypt a hash.",
+      "  -e --encrypt=<password>     Encrypt a password.",
+      "  -s --size                   Calculate number of passwords stored.",
+      "  -c --contact-point=<host>   Cassandra contact point host [default: 127.0.0.1].",
+      "  -a --algorithm=<algorithm>  Hash algorithm [default: MD5].",
+      "  -v --version                Show version.",
+      "  -h --help                   Print usage info."
+    }
+  );
 
   /** Painbow's Cassandra keyspace */
   public static final String KEYSPACE = "rainbows";
@@ -52,14 +56,19 @@ public final class Painbow {
    */
   public static void migrate(final Session session) {
     session.execute(
-      "CREATE KEYSPACE IF NOT EXISTS " + KEYSPACE + " WITH REPLICATION = " +
-      "{ 'class': 'SimpleStrategy', 'replication_factor': 3}"
+      String.format(
+        "CREATE KEYSPACE IF NOT EXISTS %s WITH REPLICATION = { 'class': 'SimpleStrategy', 'replication_factor': 3}",
+        KEYSPACE
+      )
     );
 
     for (String algorithm : ALGORITHMS) {
       session.execute(
-        "CREATE TABLE IF NOT EXISTS " + KEYSPACE + "." + algorithm + " " +
-        "(hash text PRIMARY KEY, password text)"
+        String.format(
+          "CREATE TABLE IF NOT EXISTS %s.%s (hash text PRIMARY KEY, password text)",
+          KEYSPACE,
+          algorithm
+        )
       );
     }
   }
@@ -78,7 +87,11 @@ public final class Painbow {
     final String hash = new String(Hex.encodeHex(md.digest()));
 
     session.execute(
-      "INSERT INTO " + KEYSPACE + "." + algorithm.replaceAll("-", "") + " (hash, password) VALUES (?,?)",
+      String.format(
+        "INSERT INTO %s.%s (hash, password) VALUES (?,?)",
+        KEYSPACE,
+        algorithm.replaceAll("-", "")
+      ),
       hash,
       password
     );
@@ -95,7 +108,11 @@ public final class Painbow {
    */
   public static ResultSet get(final Session session, final String algorithm, final String hash) throws NoSuchAlgorithmException {
     return session.execute(
-      "SELECT password FROM " + KEYSPACE + "." + algorithm.replaceAll("-", "") + " WHERE hash = ?",
+      String.format(
+        "SELECT password FROM %s.%s WHERE hash = ?",
+        KEYSPACE,
+        algorithm.replaceAll("-", "")
+      ),
       hash
     );
   }
@@ -107,7 +124,11 @@ public final class Painbow {
    */
   public static long size(final Session session, final String algorithm) {
     ResultSet resultSet = session.execute(
-      "SELECT COUNT(*) FROM " + KEYSPACE + "." + algorithm.replaceAll("-", "")
+      String.format(
+        "SELECT COUNT(*) FROM %s.%s",
+        KEYSPACE,
+        algorithm.replaceAll("-", "")
+      )
     );
 
     List<Row> rows = resultSet.all();
