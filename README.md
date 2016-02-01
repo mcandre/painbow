@@ -59,6 +59,7 @@ Options:
 ## Optional
 
 * [Sonar](http://www.sonarqube.org/)
+* [Infer](http://fbinfer.com/)
 * [Docker](https://www.docker.com/)
 * [wget](http://www.gnu.org/software/wget/)
 * [bash](http://www.gnu.org/software/bash/)
