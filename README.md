@@ -53,8 +53,8 @@ Options:
 # REQUIREMENTS
 
 * [Cassandra](http://cassandra.apache.org/) 2+
-* [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 1.7+
-* [Gradle](http://gradle.org/) 2.1+
+* [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 1.7+
+* [gradle](http://gradle.org/) 2.1+
 
 ## Optional
 
@@ -63,6 +63,7 @@ Options:
 * [Docker](https://www.docker.com/)
 * [wget](http://www.gnu.org/software/wget/)
 * [bash](http://www.gnu.org/software/bash/)
+* [bashate](https://github.com/openstack-dev/bashate)
 * [shlint](https://rubygems.org/gems/shlint)
 * [shellcheck](http://hackage.haskell.org/package/ShellCheck)
 
