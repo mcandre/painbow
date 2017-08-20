@@ -63,9 +63,11 @@ Options:
 * [Docker](https://www.docker.com/)
 * [wget](http://www.gnu.org/software/wget/)
 * [bash](http://www.gnu.org/software/bash/)
+* [shfmt](https://github.com/mvdan/sh) (e.g. `go get github.com/mvdan/sh/cmd/shfmt)
 * [bashate](https://github.com/openstack-dev/bashate)
 * [shlint](https://rubygems.org/gems/shlint)
 * [shellcheck](http://hackage.haskell.org/package/ShellCheck)
+* [stank](https://github.com/mcandre/stank) (e.g. `go get github.com/mcandre/stank/...`)
 
 ## Debian/Ubuntu
 
