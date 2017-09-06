@@ -20,11 +20,16 @@ task :shellcheck => [] do
   sh 'stank . | xargs shellcheck'
 end
 
+task :funk => [] do
+  sh 'funk .'
+end
+
 task :lint => [
   :shfmt,
   :bashate,
   :shlint,
   :checkbashisms,
-  :shellcheck
+  :shellcheck,
+  :funk
 ] do
 end
