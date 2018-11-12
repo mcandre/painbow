@@ -1,35 +1,10 @@
-task :default => :lint
+task :default => 'lint'
 
-task :shfmt => [] do
-  sh 'stank . | xargs shfmt -w -i 4'
-end
-
-task :bashate => [] do
-  sh 'stank . | xargs bashate'
-end
-
-task :shlint => [] do
-  sh 'stank . | xargs shlint'
-end
-
-task :checkbashisms => [] do
-  sh 'stank . | xargs checkbashisms -n -p'
-end
-
-task :shellcheck => [] do
-  sh 'stank . | xargs shellcheck'
-end
-
-task :funk => [] do
-  sh 'funk .'
+task :editorconfig=> [] do
+    sh 'git ls-files -z | grep -av patch | xargs -0 -r -n 100 $(npm bin)/eclint check'
 end
 
 task :lint => [
-  :shfmt,
-  :bashate,
-  :shlint,
-  :checkbashisms,
-  :shellcheck,
-  :funk
-] do
+    :editorconfig
+    ] do
 end
