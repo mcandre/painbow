@@ -6,7 +6,7 @@ painbow is a scalable rainbow table, able to handle petabytes of passwords and h
 
 # EXAMPLES
 
-```
+```console
 $ docker run -p 9042:9042 -p 7000:7000 -p 7001:7001 -p 7199:7199 -p 9160:9160 cassandra:2.2
 
 $ gradle shadowJar
@@ -63,15 +63,15 @@ Options:
 * [Docker](https://www.docker.com/)
 * [wget](http://www.gnu.org/software/wget/)
 * [bash](http://www.gnu.org/software/bash/)
-* [shfmt](https://github.com/mvdan/sh) (e.g. `go get github.com/mvdan/sh/cmd/shfmt)
-* [bashate](https://github.com/openstack-dev/bashate)
-* [shlint](https://rubygems.org/gems/shlint)
-* [shellcheck](http://hackage.haskell.org/package/ShellCheck)
+* [make](https://www.gnu.org/software/make/)
+* [GNU findutils](https://www.gnu.org/software/findutils/)
 * [stank](https://github.com/mcandre/stank) (e.g. `go get github.com/mcandre/stank/...`)
+* [Python](https://www.python.org) 3+ (for yamllint)
+* [Node.js](https://nodejs.org/en/) (for eclint)
 
 ## Debian/Ubuntu
 
-```
+```console
 $ sudo echo "deb http://downloads.sourceforge.net/project/sonar-pkg/deb binary/" >> /etc/apt/sources.list
 $ sudo apt-get update
 $ sudo apt-get install docker.io wget gradle sonar
@@ -79,7 +79,7 @@ $ sudo apt-get install docker.io wget gradle sonar
 
 ## RedHat/Fedora/CentOS
 
-```
+```console
 $ sudo wget -O /etc/yum.repos.d/sonar.repo http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
 $ sudo yum install docker-io wget gradle sonar
 ```
@@ -94,9 +94,8 @@ $ sudo yum install docker-io wget gradle sonar
 
 * [Xcode](http://itunes.apple.com/us/app/xcode/id497799835?ls=1&mt=12)
 * [Homebrew](http://brew.sh/)
-* [brew-cask](http://caskroom.io/)
 
-```
+```console
 $ brew cask install virtualbox vagrant
 $ brew install boot2docker wget gradle sonar sonar-runner
 ```
@@ -105,6 +104,6 @@ $ brew install boot2docker wget gradle sonar sonar-runner
 
 * [Chocolatey](https://chocolatey.org/)
 
-```
+```console
 > chocolatey install docker wget git gradle sonar-runner
 ```
