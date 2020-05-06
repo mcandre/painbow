@@ -1,2 +1,5 @@
 #!/bin/sh
+set -eu
+IFS="$(printf '%b_' '\n\t ')"
+IFS="${IFS%_}"
 java -jar "${0%/*}"/../build/libs/painbow-all.jar "$@"
