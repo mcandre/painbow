@@ -1,6 +1,6 @@
 infer-out/
-# Created by https://www.gitignore.io/api/java,gradle,ruby,node
-# Edit at https://www.gitignore.io/?templates=java,gradle,ruby,node
+# Created by https://www.toptal.com/developers/gitignore/api/java,gradle,ruby,node
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,ruby,node
 
 ### Java ###
 # Compiled class file
@@ -33,6 +33,10 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Runtime data
 pids
@@ -45,6 +49,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+*.lcov
 
 # nyc test coverage
 .nyc_output
@@ -68,11 +73,20 @@ jspm_packages/
 # TypeScript v1 declaration files
 typings/
 
+# TypeScript cache
+*.tsbuildinfo
+
 # Optional npm cache directory
 .npm
 
 # Optional eslint cache
 .eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
 
 # Optional REPL history
 .node_repl_history
@@ -85,24 +99,43 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.test
+.env*.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+.parcel-cache
 
-# next.js build output
+# Next.js build output
 .next
 
-# nuxt.js build output
+# Nuxt.js build / generate output
 .nuxt
+dist
+
+# Gatsby files
+.cache/
+# Comment in the public line in if your project uses Gatsby and not Next.js
+# https://nextjs.org/blog/next-9-1#public-directory-support
+# public
 
 # vuepress build output
 .vuepress/dist
 
 # Serverless directories
-.serverless
+.serverless/
 
 # FuseBox cache
 .fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
 
 ### Ruby ###
 *.gem
@@ -120,6 +153,9 @@ typings/
 # Used by dotenv library to load environment variables.
 # .env
 
+# Ignore Byebug command history file.
+.byebug_history
+
 ## Specific to RubyMotion:
 .dat*
 .repl_history
@@ -133,7 +169,6 @@ build-iPhoneSimulator/
 # We recommend against adding the Pods directory to your .gitignore. However
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
 # vendor/Pods/
 
 ## Documentation cache and generated files:
@@ -156,9 +191,15 @@ build-iPhoneSimulator/
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 
+# Used by RuboCop. Remote config files pulled in from inherit_from directive.
+# .rubocop-https?--*
+
+### Ruby Patch ###
+# Used by RuboCop. Remote config files pulled in from inherit_from directive.
+# .rubocop-https?--*
+
 ### Gradle ###
 .gradle
-/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -175,4 +216,4 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
-# End of https://www.gitignore.io/api/java,gradle,ruby,node
+# End of https://www.toptal.com/developers/gitignore/api/java,gradle,ruby,node
