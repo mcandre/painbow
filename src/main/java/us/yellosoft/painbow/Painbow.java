@@ -1,6 +1,5 @@
 package us.yellosoft.painbow;
 
-import java.util.Map;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,7 +14,6 @@ import org.apache.commons.codec.binary.Hex;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.ResultSet;
-import com.datastax.driver.core.Row;
 
 /** Cassandra-backed rainbow table */
 public final class Painbow {
@@ -50,9 +48,11 @@ public final class Painbow {
 
     /** Utility class */
     private Painbow() {}
-        /** Don't do this. Use a proper migrations framework instead of hardcoding.
-        @param session a Cassandra session
-        */
+        /**
+         * Don't do this. Use a proper migrations framework instead of hardcoding.
+         *
+         * @param session a Cassandra session
+         */
         public static void migrate(final Session session) {
             session.execute(
             String.format(
@@ -61,96 +61,108 @@ public final class Painbow {
             )
             );
 
-            for (String algorithm : ALGORITHMS) {
+            for (final var algorithm : ALGORITHMS) {
                 session.execute(
-                String.format(
-                "CREATE TABLE IF NOT EXISTS %s.%s (hash text PRIMARY KEY, password text)",
-                KEYSPACE,
-                algorithm
-                )
+                    String.format(
+                        "CREATE TABLE IF NOT EXISTS %s.%s (hash text PRIMARY KEY, password text)",
+                        KEYSPACE,
+                        algorithm
+                    )
                 );
             }
         }
 
-        /** Inform the rainbow table of a password/hash pair
-        @param session a Cassandra session
-        @param algorithm a supported hash algorithm name
-        @param password a UTF-8 password to store
-        @return a hash string
-        @throws NoSuchAlgorithmException on unsupported algorithm name
-        @throws UnsupportedEncodingException on a poorly encoded password
-        */
+        /**
+         * Inform the rainbow table of a password/hash pair
+         *
+         * @param session a Cassandra session
+         * @param algorithm a supported hash algorithm name
+         * @param password a UTF-8 password to store
+         *
+         * @return a hash string
+         * @throws NoSuchAlgorithmException on unsupported algorithm name
+         * @throws UnsupportedEncodingException on a poorly encoded password
+         */
         public static String put(final Session session, final String algorithm, final String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-            final MessageDigest md = MessageDigest.getInstance(algorithm);
+            final var md = MessageDigest.getInstance(algorithm);
             md.update(password.getBytes("UTF-8"));
-            final String hash = new String(Hex.encodeHex(md.digest()));
+            final var hash = new String(Hex.encodeHex(md.digest()));
 
             session.execute(
-            String.format(
-            "INSERT INTO %s.%s (hash, password) VALUES (?,?)",
-            KEYSPACE,
-            algorithm.replaceAll("-", "")
-            ),
-            hash,
-            password
+                String.format(
+                    "INSERT INTO %s.%s (hash, password) VALUES (?,?)",
+                    KEYSPACE,
+                    algorithm.replaceAll("-", "")
+                ),
+                hash,
+                password
             );
 
             return hash;
         }
 
-        /** Lookup a password from a hash
-        @param session a Cassandra session
-        @param algorithm a supported hash algorith name
-        @param hash a hash string
-        @return a UTF-8 password
-        @throws NoSuchAlgorithmException on unsupported algorithm name
-        */
+        /**
+         * Lookup a password from a hash
+         *
+         * @param session a Cassandra session
+         * @param algorithm a supported hash algorith name
+         * @param hash a hash string
+         *
+         * @return a UTF-8 password
+         * @throws NoSuchAlgorithmException on unsupported algorithm name
+         */
         public static ResultSet get(final Session session, final String algorithm, final String hash) throws NoSuchAlgorithmException {
             return session.execute(
-            String.format(
-            "SELECT password FROM %s.%s WHERE hash = ?",
-            KEYSPACE,
-            algorithm.replaceAll("-", "")
-            ),
-            hash
+                String.format(
+                    "SELECT password FROM %s.%s WHERE hash = ?",
+                    KEYSPACE,
+                    algorithm.replaceAll("-", "")
+                ),
+                hash
             );
         }
 
-        /** Count total passwords per algorithm
-        @param session a Cassandra session
-        @param algorithm an algorithm name
-        @return the number of password/hash pairs stored for that algorithm
-        */
+        /**
+         * Count total passwords per algorithm
+         *
+         * @param session a Cassandra session
+         * @param algorithm an algorithm name
+         *
+         * @return the number of password/hash pairs stored for that algorithm
+         */
         public static long size(final Session session, final String algorithm) {
-            ResultSet resultSet = session.execute(
-            String.format(
-            "SELECT COUNT(*) FROM %s.%s",
-            KEYSPACE,
-            algorithm.replaceAll("-", "")
-            )
+            final var resultSet = session.execute(
+                String.format(
+                    "SELECT COUNT(*) FROM %s.%s",
+                    KEYSPACE,
+                    algorithm.replaceAll("-", "")
+                )
             );
 
-            List<Row> rows = resultSet.all();
+            final var rows = resultSet.all();
 
-            long total = 0L;
+            var total = 0L;
 
-            for (Row row : rows) {
+            for (final var row : rows) {
                 total += row.getLong("count");
             }
 
             return total;
         }
 
-        /** CLI entry point
-        @param args CLI flags
-        @throws NoSuchAlgorithmException on an unsupported algorithm name
-        @throws UnsupportedEncodingException on a poorly encoded password
-        */
+        /**
+         * CLI entry point
+         *
+         * @param args CLI flags
+         *
+         * @throws NoSuchAlgorithmException on an unsupported algorithm name
+         * @throws UnsupportedEncodingException on a poorly encoded password
+         */
         public static void main(final String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-            Map<String, Object> options = new Docopt(DOC).withVersion("0.0.1").parse(args);
+            final var options = new Docopt(DOC).withVersion("0.0.1").parse(args);
 
-            Cluster cluster = Cluster.builder().addContactPoint((String) options.get("--contact-point")).build();
-            Session session = cluster.connect();
+            final var cluster = Cluster.builder().addContactPoint((String) options.get("--contact-point")).build();
+            final var session = cluster.connect();
 
             if ((Boolean) options.get("--migrate")) {
                 System.out.println("Migrating...");
@@ -158,18 +170,18 @@ public final class Painbow {
             }
             else if ((String) options.get("--encrypt") != null) {
                 System.out.println(
-                Painbow.put(
-                session,
-                (String) options.get("--algorithm"),
-                (String) options.get("--encrypt")
-                )
+                    Painbow.put(
+                    session,
+                    (String) options.get("--algorithm"),
+                    (String) options.get("--encrypt")
+                    )
                 );
             }
             else if ((String) options.get("--decrypt") != null) {
-                Row row = Painbow.get(
-                session,
-                (String) options.get("--algorithm"),
-                (String) options.get("--decrypt")
+                final var row = Painbow.get(
+                    session,
+                    (String) options.get("--algorithm"),
+                    (String) options.get("--decrypt")
                 ).one();
 
                 if (row != null) {
@@ -178,10 +190,10 @@ public final class Painbow {
             }
             else if ((Boolean) options.get("--size") != null) {
                 System.out.println(
-                size(
-                session,
-                (String) options.get("--algorithm")
-                )
+                    size(
+                        session,
+                        (String) options.get("--algorithm")
+                    )
                 );
             }
 

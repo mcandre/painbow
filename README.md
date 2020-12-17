@@ -53,8 +53,8 @@ Options:
 # REQUIREMENTS
 
 * [Cassandra](http://cassandra.apache.org/) 2+
-* [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 1.7+
-* [gradle](http://gradle.org/) 2.1+
+* [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 1.11+
+* [gradle](http://gradle.org/) 6+
 
 ## Optional
 
